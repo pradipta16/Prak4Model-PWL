@@ -1,5 +1,6 @@
 <?php
 
+use App\Article;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,16 +12,39 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.app');
+// Route::get('/', 'PageController@home');
+
+// Route::get('/about', 'PageController@about');
+
+// Route::get('/contact', 'PageController@contact');
+
+// Route::get('/', function() {
+//     $articles = App\Article::latest('id')->get();
+
+//     return view('welcome', [
+//         'articles' => $articles
+//     ]);
+        
+// });
+
+Route::get('/','PageController@index');
+
+Route::get('/about', function() {
+    return view('about');
 });
 
+Route::get('/post', function() {
+    return view('post');
+});
+
+Route::get('/article/{article}', 'ArticleController@index');
+
+Route::get('/contact', function() {
+    return view('contact');
+});
 Auth::routes();
 
+Route::get('/home', function() {
+    return view('home');
+});
 Route::get('/home', 'HomeController@index');
-Route::get('/about', 'AboutController@index');
-Route::get('/articles/{id}', 'ArticlesController@index');
-
-Route::get('/home', 'HomeController');
-
-Route::get('/post/{id}', 'ArticleController@article');

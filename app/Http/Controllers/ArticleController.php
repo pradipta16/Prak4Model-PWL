@@ -1,15 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Article;
 use Illuminate\Http\Request;
 
-class ArticlesController extends Controller
+class ArticleController extends Controller
 {
-    public function index($id) {
-        $articlesAll = Article::find($id);
-        $articlesAll = json_decode(json_encode($articlesAll));
-
-        return view('article', ['id'=>$id])->with(compact('articlesAll'));
+    public function index(Article $article) {
+        $article = Article::findOrFail($article->id);
+        return view('detailPost',compact('article'));
     }
 }

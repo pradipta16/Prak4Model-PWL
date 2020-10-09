@@ -6,12 +6,23 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function __invoke(){
-        Cache::rememberForever('articlesAll',function(){
-            return Article::all();
-        });
-        $articlesAll = Cache::get('articlesAll');
-        $articlesAll = json_decode(json_encode($articlesAll));
-        return view('home')->with(compact('articlesAll'));    
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('home');
     }
 }

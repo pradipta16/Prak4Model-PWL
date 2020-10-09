@@ -1,44 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-      <div class="container">
-           <div class="row">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Dashboard</div>
 
-      <!-- Blog Entries Column -->
-      <div class="col-md-12">
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-        <h1 class="my-4">Page Heading
-          <small>Secondary Text</small>
-        </h1>
+                    You are logged in!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 
-        <!-- Blog Post -->
-        <div class="card mb-4">
-          {{-- <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap"> --}}
-          <div class="card-body">
-            <h2 class="card-title">Post Title</h2>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-            <a href="#" class="btn btn-primary">Read More &rarr;</a>
-          </div>
-          <div class="card-footer text-muted">
-            Posted on January 1, 2020 by
-            <a href="#">Start Bootstrap</a>
+
+@section('section')
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('img/home.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Welcome, Backpacker !</h1>
+            <span class="subheading">never stop exploring the world</span>
           </div>
         </div>
-
-        <!-- Pagination -->
-        <ul class="pagination justify-content-center mb-4">
-          <li class="page-item">
-            <a class="page-link" href="#">&larr; Older</a>
-          </li>
-          <li class="page-item disabled">
-            <a class="page-link" href="#">Newer &rarr;</a>
-          </li>
-        </ul>
-
       </div>
-
     </div>
-    <!-- /.row -->
+  </header>
 
-      </div>
-@endsection
+  <!-- Main Content -->
+<div class="container">
+    <div class="row col-md-12">
+        <div class="card-group">
+            @foreach($article as $a)
+        <div class="card">
+            <img class="card-img-top" src="img/about-bg.jpg" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">{{$a -> title}}</h5>
+                <p class="card-text">{{$a -> excerpt}}</p>
+                <a href="/article/{{$a->id}}">Readmore</a>
+                </div>
+                <div class="card-footer">
+                <small class="text-muted">Last updated {{$a -> created_at}}</small>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+
+ @endsection
